@@ -48,7 +48,8 @@ Bisogna tenere a mente però che l'essere umano, cosi come i sistemi intelligent
 
 Il ragionamento, le inferenze, che l'essere umano fa è spesso non monotòno: si fanno inferenze tentative, anche in mancanza di informazioni complete e, a fronte di nuove conoscenza, si rivedono le inferenze o le assunzioni precedentemente fatte.
 
-\subsection{Laboratorio: Introduzione a Prolog}
+\section{Laboratorio}
+\subsection{Introduzione a Prolog}
 Il Prolog è un linguaggio di programmazione che adotta il paradigma di programmazione logica. E' un interprete che permette di dimostrare dei fatti a partire da un dominio di conoscenza costituito da \textbf{fatti} e \textbf{clausole}.
 Bisogna osservare alcune informazioni importanti prima di proseguire: 
 \begin{itemize}
@@ -61,9 +62,7 @@ Bisogna osservare alcune informazioni importanti prima di proseguire:
 \end{itemize}
 
 Il \textbf{fatto} è un insieme di informazioni esplicite relative al mio dominio, ad esempio "Tom è un gatto", la sintassi è la seguente:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 gatto(tom).
 \end{tcblisting}
 Un fatto è costituito da un \textbf{predicato}, che è una funzione senza argomento, nel nostro esempio è "gatto" e da una costante, ovvero "tom".
@@ -71,9 +70,7 @@ Un fatto è costituito da un \textbf{predicato}, che è una funzione senza argom
 Una \textbf{regola} di inferenza è uno schema formale che si applica nell'eseguire un'inferenza, una \textbf{clausola} è un insieme finiti di fatti e regole.
 
 Di seguito un semplice esempio di programma che definisce fatti e regole:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 % Regola: "tutti i gatti sono felini"
 felino(X):-gatto(X).
 
@@ -87,9 +84,7 @@ Per utilizzare il linguaggio matematico una regola può essere scritta nel segue
 \end{displaymath}
 
 Di seguito un semplice esempio di programma che definisce fatti e regole:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 % Fatti
 gatto(tom).
 gatto(fred).
@@ -106,9 +101,8 @@ miagola(X):-gatto(X),vivo(X).
 
 Da interprete possiamo effettuare un test veloce, come primo passaggio però dovremmo importare il file contenente i fatti e le regole appena mostrate:
 
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt,colback=lightgray}
+\begin{tcblisting}{breakable,listing only, 
+    listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox,colback=lightgray}
 ?- ['Esercizi/lezione1.pl'].
 true.
 ?- gatto(Chi).
@@ -120,13 +114,11 @@ true.
 false.
 \end{tcblisting}
 
-\subsection{Laboratorio: Congiunzione e Disgiunzione Logica}
+\subsection{Congiunzione e Disgiunzione Logica}
 Come accennato in precedenza la congiunzione, l'and booleano, può essere implementata utilizzando la virgola ",", per quanto riguarda la disgiunzione, quindi l'or booleano, sarà sufficiente definire più clausole.
 
 Di seguito un esempio che racchiude quanto detto:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 % fatti: genitore e figli
 genitore(paolo,mario).
 genitore(anna,mario).
@@ -155,26 +147,30 @@ antenato(X,Y):-genitore(X,Z),antenato(Z,Y).
 \end{tcblisting}
 
 Analizzando quanto scritto notiamo che è stata implementata una disgiunzione logica con le regole:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 antenato(X,Y):-genitore(X,Y).
 antenato(X,Y):-nonno(X,Y).
 \end{tcblisting}
 Quanto scritto sta ad indicare che X è un antenato di Y sse X è genitore di Y \textbf{oppure} X è nonno di Y, notare che X e Y sono delle variabili.
-
+\newline
 Inoltre possiamo pensare di generalizzare utilizzando una regola ricorsiva dove il caso base verifica che che X sia antenato di Y con la regola della genitorialità, mentre invece il caso ricorsivo verifica che X sia genitore di Z \textbf{oppure} che Z sia antenato di Y:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 antenato(X,Y):-genitore(X,Y).
 antenato(X,Y):-genitore(X,Z),antenato(Z,Y).
 \end{tcblisting}
 
-In ultimo istanza implementiamo la regola \textbf{fratelloGermano} verifica se A e B sono fratelli, dove A è diverso da B:
-\begin{tcblisting}{breakable,listing only,
-  listing options={language=Prolog,aboveskip=0pt,belowskip=0pt},
-  size=fbox,boxrule=0pt,frame hidden,arc=0pt}
+Dobbiamo sottolineare il fatto che, in Prolog, l'ordine delle clausole impatta sulla corretta esecuzione, possono esserci degli errori, e sull'efficienza della nostra soluzione. 
+Quindi possiamo avere due soluzioni con una base di conoscenza semanticamente identica ma sintatticamente no, come nel caso che segue dove sono state invertite delle clausole della funzione ricorsiva precedentemente implementata.
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+  % invertiamo caso base e caso ricorsivo
+  % invertiamo nel caso ricorsivo le clausole
+  antenato(X,Y):-antenato(Z,Y),genitore(X,Z).
+  antenato(X,Y):-genitore(X,Y).
+\end{tcblisting}
+Questo perché Prolog prende in considerazione le regole nell'ordine in cui si trovano, anche se in una formulazione ricorsiva ci si aspetta prima il caso base e poi quello ricorsivo, ma questo è solo un esempio.
+\newline
+In ultimo istanza implementiamo la regola $fratelloGermano$ verifica se A e B sono fratelli, dove A è diverso da B:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
 fratelloGermano(A,B):-
     % A != B
     A \== B,
@@ -184,4 +180,81 @@ fratelloGermano(A,B):-
     genitore(SecondoGenitore,A),
     genitore(PrimoGenitore,B),
     genitore(SecondoGenitore,B).
+\end{tcblisting}
+In questa formulazione però c'è un problema, ovvero che la disuguaglianza è un predicato, non è un vincolo. Quindi viene valutato con il valore corrente di $A$ e $B$, quando viene chiesto $fratelloGermano(mario,X)$ non viene controllato il valore di $X$ quando è istanziato, di conseguenza tra le risposte avremo anche $X=mario$, quindi ci dice che "Mario" è fratello di se stesso. Va da se che abbiamo un problema anche con la funzione $genitore$ nel caso in cui il $PrimoGenitore$ è uguale al $SecondoGenitore$, perché due fratelli che hanno un solo genitore in comune possono essere considerati dalla nostra funzione fratelli germani.
+Ci sono delle librerie, delle estensioni, per risolvere questo tipo di problemi di soddisfacimento di vincoli, al momento ovviamo al problema apportando le seguenti modifiche:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+fratelloGermano(A,B):-
+    % A e B sono fratelli se hanno gli stessi genitori
+    % A e B non devono essere la stessa persona
+    % PrimoGenitore deve essere diverso a SecondoGenitore
+    
+    genitore(PrimoGenitore,A),
+    genitore(SecondoGenitore,A),
+    PrimoGenitore \== SecondoGenitore,
+    genitore(PrimoGenitore,B),
+    A \== B,
+    genitore(SecondoGenitore,B).
+\end{tcblisting}
+
+\subsection{Le Liste}
+La definizione di lista può essere data ricorsivamente nel modo seguente:
+\begin{itemize}
+    \item L'atomo $[]$ rappresenta una lista vuota
+    \item Il termine $[HEAD|TAIL]$ indica una lista con in testa l'elemento $HEAD$ e in coda gli elementi $TAIL$
+\end{itemize}
+
+Il Prolog fornisce una notazione semplificata per la rappresentazione delle liste: la lista $[HEAD|TAIL]$ può essere rappresentata anche come $.(HEAD,TAIL)$. In generale nell'ambito di una lista possibile individuare due parti strutturalmente significative, abitualmente note come testa e coda, ma possiamo decidere di rappresentarle in funzione della nostra necessità, ad esempio:
+\begin{itemize}
+    \item $[X,Y|Z]$ indica una lista composta da un primo elemento X, da un secondo elemento Y e da una coda Z (eventualmente vuota).
+    \item $[X,Y,Z]$ indica una lista composta esattamente da tre elementi X, Y Z.
+    \item $[X,[Y,Z]]$ indica una lista composta da un primo elemento X e da un secondo elemento [Y,Z] che è a sua volta una lista composta da due elementi.
+\end{itemize}
+
+Le liste possono contenere numeri interi, liste di liste (senza alcun limite teorico al livello di annidamento), atomi e variabili. 
+
+\subsubsection{Aggiungere e Eliminare un Elemento}
+Per aggiungere l'elemento X in testa alla lista L è sufficiente scrivere $[X|L]$. Oppure utilizzando il predicato \textbf{add} che aggiunge l'elemento X in testa alla lista L fornendo come risultato la lista L1:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+add(X,L,L1).
+\end{tcblisting}
+
+Per elimina dalla lista L una qualsiasi occorrenza di X dando come risultato la lista L1, possiamo usare il predicato \textbf{delete}:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+delete(X,L,L1).
+\end{tcblisting}
+
+\subsubsection{Ricerca un Elemento}
+Per verificare se un elemento è contenuto o no all'interno di una lista possiamo utilizzare il predicato \textbf{member}, che andrà a ricercare l'elemento X all'interno della lista L, e può essere implementato nel seguente modo:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+member(X,L).
+\end{tcblisting}
+
+\subsubsection{Concatenare due Liste}
+Per concatenare due liste possiamo utilizzare il predicato \textbf{append}, che anrà ad appendere la lista L2 alla lista L1 e come risultato avremo la lista L, può essere implementato come segue:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+append(L1, L2, L).
+\end{tcblisting}
+
+\subsection{Predicato "is"}
+Il predicato $is$ viene utilizzato in Prolog per forzare la valutazione delle espressioni aritmetiche. Quindi, con i concetti illustrati in questi ultimi paragrafi, possiamo implementare la somma degli elementi di una lista come segue:
+\begin{tcblisting}{breakable,listing only, listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox}
+somma([],0).
+somma([Head|Tail],Res):-
+    somma(Tail,SommaTail),
+    Res is Head+SommaTail.
+\end{tcblisting}
+\begin{tcblisting}{breakable,listing only, 
+    listing options={language=Prolog,aboveskip=0pt,belowskip=0pt}, size=fbox,colback=lightgray}
+?- ['Esercizi/lezione3.pl'].
+true.
+
+?- somma([1,2,3],X).
+X = 6.
+
+?- somma([1,2,3],6).
+true.
+
+?- somma([1,2,3],7).
+false.
 \end{tcblisting}
