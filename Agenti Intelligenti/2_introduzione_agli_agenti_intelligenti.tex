@@ -172,20 +172,21 @@ Gli attori sono a un livello di astrazione più elevato rispetto a threads, infa
 Uno dei problemi del modello ad attori è quello che non affronta adeguatamente il problema del coordinamento (sebbene sono state proposte estensioni). Inoltre non supporta la progettazione e la modularizzazione dei processi che utilizzano questi oggetti, perché processi esterni agli Attori.
 
 \subsection{Il Paradigma Agent-Oriented}
-La programmazione orientata agli agenti (AOP) è un paradigma di programmazione in cui la costruzione del software è centrata sul concetto di agenti software. A differenza della programmazione orientata agli oggetti che ha gli oggetti, che forniscono metodi con parametri variabili, un agente ha uno stato che è costituito da componenti come \textbf{convinzioni}, \textbf{decisioni}, capacità e \textbf{obblighi}; per questo motivo lo stato di un agente è chiamato stato mentale.
+La programmazione orientata agli agenti (AOP) è un paradigma di programmazione in cui la costruzione del software è centrata sul concetto di agenti software. A differenza della programmazione orientata agli oggetti che ha gli oggetti, che forniscono metodi con parametri variabili, un agente ha uno stato che è costituito da componenti come \textbf{credenze (belief)}, \textbf{intenzioni (intention)}, capacità e \textbf{obblighi}; per questo motivo lo stato di un agente è chiamato stato mentale.
 
 \begin{center}
     \includegraphics[scale=0.4]{images/triangolo di meyer AOP.PNG}
 \end{center}
-Il paradigma dell'agente si basa su due astrazioni di prima classe:
+Il paradigma dell'agente vede se stesso, e l'ambiente circostante, come due astrazioni di prima classe:
 \begin{itemize}
-    \item \textbf{Agenti, orientato al processo}:
+    \item \textbf{Agenti sono orientati al processo}:
         \begin{itemize}
-            \item Sono autonomi, quindi il ciclo deliberativo finalizzato al raggiungimento di un obiettivo (proattività).
+            \item Il ciclo deliberativo, delle intenzioni, è finalizzato al raggiungimento di un goal (processo).
             \item Sono in grado di percepire e manipolare il loro ambiente.
         \end{itemize}
-    \item \textbf{Ambiente, orientato ai dati/oggetto}.
+    \item \textbf{Ambiente è orientato ai dati/oggetti}: I dati, gli oggetti, sono le componenti che descrivono l'ambiente circostante.
 \end{itemize}
+Possiamo intuire facilmente che, a cavallo tra le \textit{azioni} e il \textit{processo} si collocano le \textbf{intenzioni (intention)}. Mentre tra il \textit{processo} e i \textit{dati} troviamo le \textbf{credenze (belief)}. 
 Quindi per evidenziare la \textit{differenza tra Agenti e Oggetti} sottolineiamo che gli Oggetti
 \begin{itemize}
     \item Non hanno il controllo sul proprio comportamento (passivo/reattivo)
